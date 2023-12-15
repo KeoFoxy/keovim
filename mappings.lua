@@ -4,25 +4,29 @@ local M = {}
 M.general = {
   i = {
     -- go to beginning and end
-    ["<S-j>"] = { "<ESC>^i", "Beginning of line" },
-    ["<S-l>"] = { "<End>", "End of line" },
+    ["<C-j>"] = { "<ESC>^i", "Beginning of line" },
+    ["<C-k>"] = { "<End>", "End of line" },
 
-  -- navigate within insert mode
-    ["<A-l>"] = { "<Left>", "Move left" }, -- Использование Option (Alt) вместо Command
+    -- move line up and down
+    ["<A-j>"] = { "<ESC>:m .+1<CR>==gi", "Move line down" },
+    ["<A-k>"] = { "<ESC>:m .-2<CR>==gi", "Move line up"},
+
+    -- navigate within insert mode
+    ["<A-l>"] = { "<Left>", "Move left" },
     ["<A-'>"] = { "<Right>", "Move right" },
     ["<A-;>"] = { "<Down>", "Move down" },
     ["<A-p>"] = { "<Up>", "Move up" },
 
     -- Select all, copy and paste in insert mode
-    ["<A-a>"] = { "<ESC>ggVG", "Select all text" },
-    ["<A-c>"] = { "<Esc>\"+y", "Copy selected text" },
-    ["<A-v>"] = { "<Esc>\"+p", "Paste from clipboard" },
+    ["<C-a>"] = { "<ESC>ggVG", "Select all text" },
+    ["<C-c>"] = { "<Esc>\"+y", "Copy selected text" },
+    ["<C-v>"] = { "<Esc>\"+p", "Paste from clipboard" },
   },
 
   n = {
     -- Base control
-    ["<A-s>"] = { "<cmd>w<CR>", "Save" }, -- Использование Option (Alt) вместо Command
-    ["<A-z>"] = { "<cmd>u<CR>", "Undo" },
+    ["<C-s>"] = { "<cmd>w<CR>", "Save" },
+    ["<C-z>"] = { "<cmd>u<CR>", "Undo" },
 
     -- Window controls
     ["<leader>a"] = { "<C-w>h", "Window left" },
@@ -68,10 +72,10 @@ M.nvimtree = {
 
   n = {
     -- toggle
-    ["<A-q>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" }, -- Использование Option (Alt) вместо Command
+    ["<leader>q"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" }, -- Использование Option (Alt) вместо Command
 
     -- focus
-    ["<A-e>"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" }, -- Использование Option (Alt) вместо Command
+    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" }, -- Использование Option (Alt) вместо Command
   },
 }
 

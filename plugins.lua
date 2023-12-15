@@ -52,7 +52,7 @@ local plugins = {
     enabled = true,
     config = function ()
       vim.g.wakatime_PromptOnRegister = 0
-      vim.g.wakatime_api_key = "waka_1946f58e-5768-49ce-b755-0b5ae6e93102"
+      vim.g.wakatime_api_key = "waka_7cc487b0-dccf-45c9-af5e-a9fed2be4204"
     end,
   }
 
