@@ -28,6 +28,9 @@ M.general = {
     ["<C-s>"] = { "<cmd>w<CR>", "Save" },
     ["<C-z>"] = { "<cmd>u<CR>", "Undo" },
 
+    ["<C-o>"] = { "<cmd>:vertical resize +1<CR>"},
+    ["<C-p>"] = { "<cmd>:vertical resize -1<CR>"},
+
     -- Window controls
     ["<leader>a"] = { "<C-w>h", "Window left" },
     ["<leader>d"] = { "<C-w>l", "Window right" },
