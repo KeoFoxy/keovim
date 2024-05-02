@@ -47,12 +47,54 @@ local plugins = {
     end,
   },
   {
+    'simrat39/rust-tools.nvim',
+    requires = {
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap'
+    },
+    lazy=false,
+    enabled=true
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    lazy = false,
+    enabled = true,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    lazy = false,
+    enabled = true,
+  },
+  {
     "wakatime/vim-wakatime",
     lazy = false,
     enabled = true,
     config = function ()
       vim.g.wakatime_PromptOnRegister = 0
       vim.g.wakatime_api_key = "WAKAKEY"
+    end,
+  },
+  {
+    "wojciech-kulik/xcodebuild.nvim",
+    lazy=false,
+    enabled=true,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-tree.lua", -- (optional) to manage project files
+      "stevearc/oil.nvim", -- (optional) to manage project files
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function ()
+      require("xcodebuild").setup({
+
+      })
     end,
   }
 
