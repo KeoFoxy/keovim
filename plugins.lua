@@ -1,5 +1,5 @@
 local overrides = require("custom.configs.overrides")
-
+local SECRETS = require("custom.secrets")
 ---@type NvPluginSpec[]
 local plugins = {
 
@@ -77,7 +77,7 @@ local plugins = {
     enabled = true,
     config = function ()
       vim.g.wakatime_PromptOnRegister = 0
-      vim.g.wakatime_api_key = "WAKAKEY"
+      vim.g.wakatime_api_key = SECRETS.WAKATIME_SECRET_API_KEY
     end,
   },
   {
