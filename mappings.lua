@@ -3,24 +3,20 @@ local M = {}
 
 M.general = {
   i = {
-    -- go to beginning and end
-    ["<C-j>"] = { "<ESC>^i", "Beginning of line" },
-    ["<C-k>"] = { "<End>", "End of line" },
-
     -- move line up and down
-    ["<A-j>"] = { "<ESC>:m .+1<CR>==gi", "Move line down" },
-    ["<A-k>"] = { "<ESC>:m .-2<CR>==gi", "Move line up"},
+    ["<C-l>"] = { "<ESC>:m .+1<CR>==gi", "Move line down" },
+    ["<C-o>"] = { "<ESC>:m .-2<CR>==gi", "Move line up"},
 
     -- navigate within insert mode
-    ["<A-l>"] = { "<Left>", "Move left" },
-    ["<A-'>"] = { "<Right>", "Move right" },
-    ["<A-;>"] = { "<Down>", "Move down" },
-    ["<A-p>"] = { "<Up>", "Move up" },
+    ["<C-a>"] = { "<Left>", "Move left" },
+    ["<C-d>"] = { "<Right>", "Move right" },
+    ["<C-s>"] = { "<Down>", "Move down" },
+    ["<C-w>"] = { "<Up>", "Move up" },
 
     -- Select all, copy and paste in insert mode
-    ["<C-a>"] = { "<ESC>ggVG", "Select all text" },
-    ["<C-c>"] = { "<Esc>\"+y", "Copy selected text" },
-    ["<C-v>"] = { "<Esc>\"+p", "Paste from clipboard" },
+    ["<A-A>"] = { "<ESC>ggVG", "Select all text" },
+    ["<A-c>"] = { "<Esc>\"+y", "Copy selected text" },
+    ["<A-v>"] = { "<Esc>\"+p", "Paste from clipboard" },
   },
 
   n = {
@@ -28,6 +24,7 @@ M.general = {
     ["<C-s>"] = { "<cmd>w<CR>", "Save" },
     ["<C-z>"] = { "<cmd>u<CR>", "Undo" },
 
+    -- Split resize
     ["<C-o>"] = { "<cmd>:vertical resize +1<CR>"},
     ["<C-p>"] = { "<cmd>:vertical resize -1<CR>"},
 
@@ -54,7 +51,7 @@ M.comment = {
 
   -- toggle comment in both modes
   n = {
-    ["<A-/>"] = { -- Использование Option (Alt) вместо Command
+    ["<A-/>"] = {
       function()
         require("Comment.api").toggle.linewise.current()
       end,
@@ -63,7 +60,7 @@ M.comment = {
   },
 
   v = {
-    ["<A-/>"] = { -- Использование Option (Alt) вместо Command
+    ["<A-/>"] = {
       "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
       "Toggle comment",
     },
