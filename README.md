@@ -1,3 +1,9 @@
 # Example_config
 
-This can be used as an example custom config for NvChad. Do check the https://github.com/NvChad/nvcommunity
+
+```lua
+-- secrets.lua
+local secrets = { WAKATIME_SECRET_API_KEY = "WAKATIME_SECRET_API_KEY" }
+return secrets
+```
+
