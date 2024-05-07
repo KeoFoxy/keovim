@@ -1,5 +1,7 @@
 # Example_config
 
+## Preview
+<img src="./img/nvim1.png">
 
 ```lua
 -- secrets.lua
