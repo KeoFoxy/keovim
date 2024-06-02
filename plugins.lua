@@ -2,13 +2,34 @@ local overrides = require("custom.configs.overrides")
 local SECRETS = require("custom.secrets")
 ---@type NvPluginSpec[]
 local plugins = {
-
-  -- Override plugin definition options
-
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     dependencies = {
-      -- format & linting
+      {
+        "williamboman/mason.nvim",
+        config = function()
+          local mason = require("mason")
+          local mason_lspconfig = require("mason-lspconfig")
+          
+          mason.setup()
+          mason_lspconfig.setup {
+            ensure_installed = overrides.mason.ensure_installed,
+          }
+          
+          mason_lspconfig.setup_handlers {
+            function(server_name)
+              require("lspconfig")[server_name].setup {
+                on_attach = require("plugins.configs.lspconfig").on_attach,
+                capabilities = require("plugins.configs.lspconfig").capabilities,
+              }
+            end,
+          }
+        end,
+      },
+      {
+        "williamboman/mason-lspconfig.nvim",
+      },
       {
         "jose-elias-alvarez/null-ls.nvim",
         config = function()
@@ -17,28 +38,19 @@ local plugins = {
       },
     },
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
+      require("custom.configs.swift")
+      require("custom.configs.typescript")
+      require("custom.configs.rust")
+    end,
   },
-
-  -- override plugin configs
-  {
-    "williamboman/mason.nvim",
-    opts = overrides.mason
-  },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
   },
-
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
-
-  -- Install a plugin
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
@@ -52,22 +64,31 @@ local plugins = {
       'neovim/nvim-lspconfig',
       'mfussenegger/nvim-dap'
     },
-    lazy=false,
-    enabled=true
+    config = function()
+      require('rust-tools').setup({})
+    end
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    requires = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("typescript-tools").setup({})
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
-    lazy = false,
-    enabled = true,
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
+    ft = { "html", "javascriptreact", "typescriptreact" },
   },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = {},
     lazy = false,
     enabled = true,
   },
@@ -87,30 +108,14 @@ local plugins = {
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-tree.lua", -- (optional) to manage project files
-      "stevearc/oil.nvim", -- (optional) to manage project files
+      "nvim-tree/nvim-tree.lua",
+      "stevearc/oil.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
     config = function ()
-      require("xcodebuild").setup({
-
-      })
+      require("xcodebuild").setup({})
     end,
   }
-
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
-
-  -- All NvChad plugins are lazy-loaded by default
-  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
-  -- {
-  --   "mg979/vim-visual-multi",
-  --   lazy = false,
-  -- }
 }
 
 return plugins

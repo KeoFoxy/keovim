@@ -3,10 +3,11 @@ local null_ls = require "null-ls"
 local b = null_ls.builtins
 
 local sources = {
-
   -- webdev stuff
-  b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-  b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } }, -- so prettier works only on these filetypes
+  b.formatting.deno_fmt,
+  b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } },
+  b.diagnostics.eslint_d,
+  b.code_actions.eslint_d,
 
   -- Lua
   b.formatting.stylua,
@@ -18,4 +19,14 @@ local sources = {
 null_ls.setup {
   debug = true,
   sources = sources,
+  on_attach = function(client)
+    if client.resolved_capabilities.document_formatting then
+      vim.cmd [[
+        augroup LspFormatting
+          autocmd! * <buffer>
+          autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+        augroup END
+      ]]
+    end
+  end,
 }

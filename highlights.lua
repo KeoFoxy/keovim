@@ -6,15 +6,9 @@ local M = {}
 
 ---@type Base46HLGroupsList
 M.override = {
-  Comment = {
-    italic = true,
-  },
-  Keyword = {
-    italic = true,
-  },
-  Include = {
-    italic = true,
-  },
+  Comment = { italic = true },
+  Keyword = { italic = true },
+  Include = { italic = true },
   Function = { italic = true },
   Variable = { italic = true },
   Type = { italic = true },

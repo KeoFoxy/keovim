@@ -12,40 +12,44 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "swift",
+    "rust",
   },
   indent = {
     enable = true,
-    -- disable = {
-    --   "python"
-    -- },
   },
 }
 
 M.mason = {
   ensure_installed = {
     -- lua stuff
-    "lua-language-server",
-    "stylua",
+    "lua_ls",
 
     -- web dev stuff
-    "css-lsp",
-    "html-lsp",
-    "typescript-language-server",
-    "deno",
-    "prettier",
+    "cssls",
+    "html",
+    "tsserver",
+    "denols",
 
     -- c/cpp stuff
     "clangd",
-    "clang-format",
+
+    -- rust stuff
+    "rust_analyzer",
   },
 }
 
--- git support in nvimtree
+M.tools = {
+  -- linters and formatters
+  "stylua",
+  "prettier",
+  "clang-format",
+}
+
 M.nvimtree = {
   git = {
     enable = true,
   },
-
   renderer = {
     highlight_git = true,
     icons = {
