@@ -12,6 +12,13 @@ rust_tools.setup({
         checkOnSave = {
           command = "clippy",
         },
+        procMacro = {
+          enable = true,
+        },
+        diagnostics = {
+          enable = true,
+          disabled = { "unresolved-proc-macro" },
+        },
       },
     },
   },

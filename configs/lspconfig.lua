@@ -11,15 +11,18 @@ local handlers = {
 
 local servers = {
   html = {},
-  cssls = {},
-  tsserver = {},
+  -- cssls = {},
+  tsserver = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    handlers = handlers,
+  },
   clangd = {},
   sourcekit = {
     root_dir = lspconfig.util.root_pattern('.git', 'Package.swift', 'compile_commands.json'),
     cmd = { "xcrun", "sourcekit-lsp" },
     filetypes = { "swift", "objective-c", "objective-cpp" },
   },
-  rust_analyzer = require('rust-tools').setup({}),
 }
 
 for server, setup in pairs(servers) do
@@ -28,6 +31,30 @@ for server, setup in pairs(servers) do
   setup.handlers = handlers
   lspconfig[server].setup(setup)
 end
+
+require('rust-tools').setup({
+  server = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+        },
+        checkOnSave = {
+          command = "clippy",
+        },
+        procMacro = {
+          enable = true,
+        },
+        diagnostics = {
+          enable = true,
+          disabled = { "unresolved-proc-macro" },
+        },
+      },
+    },
+  },
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP Actions',

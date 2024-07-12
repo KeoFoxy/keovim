@@ -5,42 +5,57 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        config = function()
-          local mason = require("mason")
-          local mason_lspconfig = require("mason-lspconfig")
+    -- dependencies = {
+    --   {
+    --     "williamboman/mason.nvim",
+    --     config = function()
+    --       local mason = require("mason")
+    --       local mason_lspconfig = require("mason-lspconfig")
           
-          mason.setup()
-          mason_lspconfig.setup {
-            ensure_installed = overrides.mason.ensure_installed,
-          }
+    --       mason.setup()
+    --       mason_lspconfig.setup {
+    --         ensure_installed = overrides.mason.ensure_installed,
+    --       }
           
-          mason_lspconfig.setup_handlers {
-            function(server_name)
-              require("lspconfig")[server_name].setup {
-                on_attach = require("plugins.configs.lspconfig").on_attach,
-                capabilities = require("plugins.configs.lspconfig").capabilities,
-              }
-            end,
-          }
-        end,
-      },
-      {
-        "williamboman/mason-lspconfig.nvim",
-      },
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-          require "custom.configs.null-ls"
-        end,
-      },
-    },
+    --       mason_lspconfig.setup_handlers {
+    --         function(server_name)
+    --           require("lspconfig")[server_name].setup {
+    --             on_attach = require("plugins.configs.lspconfig").on_attach,
+    --             capabilities = require("plugins.configs.lspconfig").capabilities,
+    --           }
+    --         end,
+    --       }
+    --     end,
+    --   },
+    --   {
+    --     "williamboman/mason-lspconfig.nvim",
+    --   },
+    --   {
+    --     "jose-elias-alvarez/null-ls.nvim",
+    --     config = function()
+    --       require "custom.configs.null-ls"
+    --     end,
+    --   },
+    -- },
     config = function()
       require("custom.configs.swift")
-      require("custom.configs.typescript")
+      -- require("custom.configs.typescript")
       require("custom.configs.rust")
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "typescript-language-server"
+      }
+    }
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
     end,
   },
   {
@@ -65,7 +80,6 @@ local plugins = {
       'mfussenegger/nvim-dap'
     },
     config = function()
-      require('rust-tools').setup({})
     end
   },
   {

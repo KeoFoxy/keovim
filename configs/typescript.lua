@@ -19,7 +19,6 @@ local null_ls = require "null-ls"
 local b = null_ls.builtins
 
 local sources = {
-  b.formatting.deno_fmt,
   b.formatting.prettier.with { filetypes = { "html", "markdown", "css", "javascriptreact", "typescriptreact" } },
   b.diagnostics.eslint_d,
   b.code_actions.eslint_d,

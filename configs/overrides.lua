@@ -26,10 +26,9 @@ M.mason = {
     "lua_ls",
 
     -- web dev stuff
-    "cssls",
+    -- "cssls",
     "html",
     "tsserver",
-    "denols",
 
     -- c/cpp stuff
     "clangd",
